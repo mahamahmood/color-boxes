@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import './Box.css';
+import { choice } from './helpers';
 
 class Box extends Component {
     static defaultProps = {
-        allColor: ['purple', 'magenta', 'lilac', 'pink']
+        allColor: ['purple', 'magenta', 'violet', 'pink']
     }
     constructor(props) {
         super(props);
-        this.state = { color: 'purple'};
+        this.state = { color: choice(this.props.allColor)};
         this.handleClick = this.handleClick.bind(this);
     }
+    pickColor() {
+        let newColor;
+        do {
+            newColor = choice(this.props.allColor);
+        } while (newColor === this.state.color);
+        
+        this.setState({ color: newColor });
+    }
     handleClick() {
-
+        this.pickColor();
     }
     render() {
         return (
